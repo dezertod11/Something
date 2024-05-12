@@ -1,6 +1,8 @@
 import numpy as np
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import GaussianNB
+from sklearn.preprocessing import StandardScaler
+from sklearn.svm import SVC
 
 class MySolutions:
     """ a kNN classifier with L2 distance """
