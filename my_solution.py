@@ -1,5 +1,6 @@
 import numpy as np
-
+from sklearn.linear_model import LogisticRegression
+from sklearn.naive_bayes import GaussianNB
 
 class MySolutions:
     """ a kNN classifier with L2 distance """
@@ -20,7 +21,18 @@ class MySolutions:
             train_predicted_labels, train_predicted_probas, test_predicted_labels, test_predicted_probas
         """
         # some imports if needed
-        ### YOUR CODE HERE    
+        ### YOUR CODE HERE
+        model = LogisticRegression()
+        model.fit(self.X_train_original, self.y_train_original)
+        
+        # Predict class probabilities
+        probas_train = model.predict_proba(self.X_train_original)
+        probas_test = model.predict_proba(self.X_test_original)
+        
+        # Predict labels
+        labels_train = model.predict(self.X_train_original)
+        labels_test = model.predict(self.X_test_original)
+        
         return labels_train, probas_train, labels_test, probas_test
     
     def get_simple_naive_bayes(self):
@@ -33,6 +45,19 @@ class MySolutions:
         """
         # some imports if needed
         ### YOUR CODE HERE
+
+        # Initialize and train Gaussian Naive Bayes model
+        model = GaussianNB()
+        model.fit(self.X_train_original, self.y_train_original)
+        
+        # Predict class probabilities
+        probas_train = model.predict_proba(self.X_train_original)
+        probas_test = model.predict_proba(self.X_test_original)
+        
+        # Predict labels
+        labels_train = model.predict(self.X_train_original)
+        labels_test = model.predict(self.X_test_original)
+        
         return labels_train, probas_train, labels_test, probas_test
 
 
@@ -47,4 +72,21 @@ class MySolutions:
         """
         # some imports if needed
         ### YOUR CODE HERE
+
+        scaler = StandardScaler()
+        X_train_scaled = scaler.fit_transform(self.X_train_original)
+        X_test_scaled = scaler.transform(self.X_test_original)
+        
+        # Initialize and train SVM classifier
+        model = SVC(probability=True)
+        model.fit(X_train_scaled, self.y_train_original)
+        
+        # Predict class probabilities
+        probas_train = model.predict_proba(X_train_scaled)
+        probas_test = model.predict_proba(X_test_scaled)
+        
+        # Predict labels
+        labels_train = model.predict(X_train_scaled)
+        labels_test = model.predict(X_test_scaled)
+        
         return labels_train, probas_train, labels_test, probas_test
